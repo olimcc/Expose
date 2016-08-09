@@ -2,13 +2,14 @@
 
 # configuration
 
-site_title=${site_title:-"My Awesome Photos"}
+site_title=${site_title:-"Olimcc"}
 
 theme_dir=${theme_dir:-"theme1"}
 
 # widths to scale images to (heights are calculated from source images)
 # you might want to change this for example, if your images aren't full screen on the browser side
-resolution=(3840 2560 1920 1280 1024 640)
+#resolution=(3840 2560 1920 1280 1024 640)
+resolution=(1920 1280 1024 640)
 
 # jpeg compression quality for static photos
 jpeg_quality=${jpeg_quality:-92}
@@ -43,7 +44,7 @@ override_textcolor=${override_textcolor:-true} # use given text color instead of
 # display a toggle button to show/hide the text
 text_toggle=${text_toggle:-true}
 
-social_button=${social_button:-true}
+social_button=${social_button:-false}
 
 # option to put the full image/video in a zip file with a license readme.txt
 download_button=${download_button:-false}
@@ -399,9 +400,9 @@ do
 		fi
 
 		maxwidth=0
-		maxheight=0
+                maxheight=200
 		count=0
-		
+
 		for res in "${resolution[@]}"
 		do
 			((count++))
