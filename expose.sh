@@ -123,6 +123,7 @@ metadata_file="metadata.txt" # search for this file in each gallery directory fo
 gallery_files=() # a flat list of all gallery images and videos
 gallery_nav=() # index of nav item the gallery image belongs to
 gallery_url=() # url-friendly name of each image
+gallery_md5=() # md5 hash of original image
 gallery_type=() # 0 = image, 1 = video, 2 = image sequence
 gallery_maxwidth=() # maximum image size available
 gallery_maxheight=() # maximum height
@@ -421,9 +422,11 @@ do
 		((index++))
 		
 		# store file and type for later use
+    mdx=`md5 -q "$file" | head -c 10`
 		gallery_files+=("$file")
 		gallery_nav+=("$i")
 		gallery_url+=("$image_url")
+    gallery_md5+=("$mdx")
 		
 		if [ "$format" = "sequence" ]
 		then
@@ -569,6 +572,8 @@ do
 		done < <(echo "$metadata")
 		
 		# set image parameters
+
+    post=$(template "$post" imagemd5 "${gallery_md5[gallery_index]}")
 		post=$(template "$post" imageurl "${gallery_url[gallery_index]}")
 		post=$(template "$post" imagewidth "${gallery_maxwidth[gallery_index]}")
 		
