@@ -318,55 +318,61 @@ function scrollcheck(){
 								});
 							}
 						}
-						
+
 					}
-				}
-				img.prop('src',url+'/'+set_res+'.jpg').removeClass('blank');
-			}
-			else{
+                                } else if ($(this).data('type') == 'youtube') {
+                    debugger;
+                var vidstring = '<iframe width="' + $(this).width() + '" height="' + $('body').height() + '" src="https://www.youtube.com/embed/6WIcjOPNlII" frameborder="0" allowfullscreen></iframe>';
+                $(this).append(vidstring);
+                $(this).css('padding-top', '0');
+                $(this).find('.post').remove();
+                $(img).remove();
+                }
+                img.prop('src',url+'/'+set_res+'.jpg').removeClass('blank');
+            } else{
 				// keeping all videos takes too much memory, reset as we go along
 				$(this).find('img.image').addClass('blank');
 				$(this).find('video, .progress').remove();
 			}
 		});
-		
+
 		$(current_slide).find('.image').addClass('active');
 
 		$(current_slide).nextAll().filter('.slide').slice(0,5).find('img.image').addClass('active');
 		$(current_slide).prevAll().filter('.slide').slice(0,2).find('img.image').addClass('active');
-		
+
 		// set custom colors
 		var sidebackground = $(current_slide).data('color2');
 		if(sidebackground){
 			$('#sidebar .background').css('background-color',sidebackground);
 		}
-		
+
 		var resbackground = $(current_slide).data('color3');
 		if(resbackground){
 			$('#resolution').css('background-color',resbackground);
 		}
-		
+
 		var sharebackground = $(current_slide).data('color4');
 		if(sharebackground){
 			$('#share').css('background-color',sharebackground);
 		}
-		
+
 		var highcolor = $(current_slide).data('textcolor');
 		var sidecolor = $(current_slide).data('color6');
 		if(sidecolor){
 			$('#sidebar, #sidebar a, #share a, #resolution a').css('color',sidecolor);
 			$('#sidebar .active a, #resolution .active a').css('color',highcolor).css('border-color', highcolor);
 		}
-		
+
 		$('#sidebar .icon.webkit, #share .icon.webkit').css('background-color',sidecolor);
-				
+
 		// highlight nav
-		
+
 		if(index >= 0){
 			$('#marker li.active').removeClass('active');
 			$('#marker li').eq(index).addClass('active');
 		}
-		
+
 		return false;
 	}
 }
